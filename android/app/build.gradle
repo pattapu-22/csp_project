@@ -1,0 +1,140 @@
+////plugins {
+////    id "com.android.application"
+////    id "kotlin-android"
+////    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
+////    id "dev.flutter.flutter-gradle-plugin"
+////}
+////
+////android {
+////    namespace = "com.example.csp_demo"
+////    compileSdk = flutter.compileSdkVersion
+////    ndkVersion = flutter.ndkVersion
+////
+////    compileOptions {
+////        sourceCompatibility = JavaVersion.VERSION_1_8
+////        targetCompatibility = JavaVersion.VERSION_1_8
+////    }
+////
+////    kotlinOptions {
+////        jvmTarget = JavaVersion.VERSION_1_8
+////    }
+////
+////    defaultConfig {
+////        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+////        applicationId = "com.example.csp_demo"
+////        // You can update the following values to match your application needs.
+////        // For more information, see: https://flutter.dev/to/review-gradle-config.
+////        minSdk = flutter.minSdkVersion
+////        targetSdk = flutter.targetSdkVersion
+////        versionCode = flutter.versionCode
+////        versionName = flutter.versionName
+////    }
+////
+////    buildTypes {
+////        release {
+////            // TODO: Add your own signing config for the release build.
+////            // Signing with the debug keys for now, so `flutter run --release` works.
+////            signingConfig = signingConfigs.debug
+////        }
+////    }
+////}
+////
+////flutter {
+////    source = "../.."
+////}
+//
+//plugins {
+//    id "com.android.application"
+//    id "kotlin-android"
+//    id "dev.flutter.flutter-gradle-plugin"
+//}
+//
+//android {
+//    namespace = "com.example.csp_demo"
+//    compileSdk = 34 // Updated to a modern SDK version
+//    ndkVersion = flutter.ndkVersion
+//
+//    compileOptions {
+//        sourceCompatibility = JavaVersion.VERSION_11 // Updated to Java 11
+//        targetCompatibility = JavaVersion.VERSION_11 // Updated to Java 11
+//        // Suppress obsolete Java 8 warnings
+//        options.compilerArgs << '-Xlint:-options'
+//    }
+//
+//    kotlinOptions {
+//        jvmTarget = "11" // Updated to Java 11
+//    }
+//
+//    defaultConfig {
+//        applicationId = "com.example.csp_demo"
+//        minSdk = 21 // Minimum SDK for broad compatibility
+//        targetSdk = 34 // Match compileSdk
+//        versionCode = flutter.versionCode
+//        versionName = flutter.versionName
+//    }
+//
+//    buildTypes {
+//        release {
+//            signingConfig = signingConfigs.debug
+//        }
+//    }
+//}
+//
+//dependencies {
+//    // Enable core library desugaring for modern Java APIs
+//    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
+//}
+//
+//flutter {
+//    source = "../.."
+//}
+
+plugins {
+    id "com.android.application"
+    id 'com.google.gms.google-services'
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+android {
+    namespace = "com.example.empower_safe" // Updated to match pubspec.yaml
+    compileSdk = 35
+    ndkVersion = flutter.ndkVersion
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+//        options.compilerArgs << '-Xlint:-options' // Suppress Java 8 warnings
+//        options.compilerArgs << '-Xlint:deprecation' // Temporary for debugging
+    }
+
+    kotlinOptions {
+        jvmTarget = "11"
+    }
+
+    defaultConfig {
+        applicationId = "com.example.empower_safe" // Updated to match pubspec.yaml
+        minSdk = 23
+        //noinspection OldTargetApi
+        targetSdk = 34
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
+    }
+
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.debug
+        }
+    }
+}
+
+dependencies {
+    implementation platform('com.google.firebase:firebase-bom:34.0.0')
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
+    // Support modern APIs
+    implementation 'com.google.firebase:firebase-analytics'
+}
+
+flutter {
+    source = "../.."
+}

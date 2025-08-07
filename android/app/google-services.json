@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "524923631166",
+    "project_id": "csp-demo-8f810",
+    "storage_bucket": "csp-demo-8f810.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:524923631166:android:793d4484b753488efdc36f",
+        "android_client_info": {
+          "package_name": "com.example.empower_safe"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB15EzNmTf5OByuHjUqt2qWA2o9XkcIUqQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
