@@ -20,6 +20,22 @@ class FirebaseService {
     return _auth.currentUser;
   }
 
+  Future<String?> getUsername() async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        DocumentSnapshot doc = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uid)
+            .get();
+        return doc.get('username') as String?;
+      }
+    } catch (e) {
+      print('Error fetching username: $e');
+    }
+    return null;
+  }
+
   Future<void> addReport(Report report) async {
     await _firestore.collection('reports').doc(report.id).set(report.toMap());
   }

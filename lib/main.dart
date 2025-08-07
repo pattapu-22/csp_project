@@ -23,6 +23,7 @@ class EmpowerSafeApp extends StatelessWidget {
     return MaterialApp(
       title: 'Women Empowerment',
       theme: AppTheme.getTheme(),
+      debugShowCheckedModeBanner: false,
 
       // Automatically navigate based on auth state
       home: AuthGate(),

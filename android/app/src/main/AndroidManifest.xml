@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="CSP app"
+        android:label="She Will"
 
         android:icon="@mipmap/ic_launcher">
         <activity

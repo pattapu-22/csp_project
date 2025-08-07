@@ -13,7 +13,7 @@ class SOSButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.red,
           shape: const CircleBorder(),
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(60),
         ),
         onPressed: () async {
           final uri = Uri.parse('tel:1091'); // Women's helpline in India
@@ -21,7 +21,8 @@ class SOSButton extends StatelessWidget {
             await launchUrl(uri);
           }
         },
-        child: const Text('SOS', style: TextStyle(fontSize: 24, color: Colors.white)),
+        child: const Text('SOS',
+            style: TextStyle(fontSize: 44, color: Colors.white)),
       ),
     );
   }
