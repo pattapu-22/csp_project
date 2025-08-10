@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart'; // ✅ Added
+import 'package:firebase_auth/firebase_auth.dart'; // ✅ Firebase Auth
+import 'package:cloud_firestore/cloud_firestore.dart'; // ✅ Firestore
 import '../components/custom_button.dart';
 import '../components/custom_text_field.dart';
 import '../utils/app_theme.dart';
@@ -31,13 +32,35 @@ class _SignInPageState extends State<SignInPage> {
   Future<void> _handleSignUp() async {
     if (_formKey.currentState!.validate()) {
       try {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        // ✅ Create Firebase Auth user
+        UserCredential userCredential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: _emailController.text.trim(),
           password: _passwordController.text.trim(),
         );
+
+        User? user = userCredential.user;
+
+        if (user != null) {
+          // ✅ Update display name in Firebase Auth
+          await user.updateDisplayName(_nameController.text.trim());
+          await user.reload();
+
+          // ✅ Save user info in Firestore
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(user.uid)
+              .set({
+            'name': _nameController.text.trim(),
+            'email': _emailController.text.trim(),
+            'createdAt': FieldValue.serverTimestamp(),
+          });
+        }
+
+        // ✅ Navigate to home after sign up
         Navigator.pushNamedAndRemoveUntil(
           context,
-          '/home',
+          '/login',
           (route) => false,
         );
       } on FirebaseAuthException catch (e) {

@@ -20,6 +20,27 @@ class FirebaseService {
     return _auth.currentUser;
   }
 
+  // Get forum posts ordered by time
+  Stream<QuerySnapshot> getForumPosts() {
+    return _firestore
+        .collection('forum_posts')
+        .orderBy('timestamp', descending: true)
+        .snapshots();
+  }
+
+  // Add new post
+  Future<void> addForumPost(String content) async {
+    final user = _auth.currentUser;
+    if (user != null) {
+      await _firestore.collection('forum_posts').add({
+        'content': content,
+        'timestamp': FieldValue.serverTimestamp(),
+        'userName': user.displayName ?? 'Anonymous',
+        'userId': user.uid,
+      });
+    }
+  }
+
   Future<String?> getUsername() async {
     try {
       User? user = FirebaseAuth.instance.currentUser;
@@ -38,17 +59,5 @@ class FirebaseService {
 
   Future<void> addReport(Report report) async {
     await _firestore.collection('reports').doc(report.id).set(report.toMap());
-  }
-
-  Stream<QuerySnapshot> getForumPosts() {
-    return _firestore.collection('forum_posts').snapshots();
-  }
-
-  Future<void> addForumPost(String content) async {
-    await _firestore.collection('forum_posts').add({
-      'content': content,
-      'timestamp': DateTime.now(),
-      'userId': _auth.currentUser?.uid,
-    });
   }
 }
