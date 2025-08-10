@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:empower_safe/education/overview_tab.dart';
-import 'package:empower_safe/education/cycle_phases_tab.dart';
-import 'package:empower_safe/education/dos_and_donts_tab.dart';
+import 'package:empower_safe/education/laws_protection_tab.dart';
+import 'package:empower_safe/education/motivation_tab.dart';
 import 'package:empower_safe/education/faq_tab.dart';
 
 class EducationScreen extends StatelessWidget {
@@ -13,13 +13,12 @@ class EducationScreen extends StatelessWidget {
       length: 4,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Menstrual Health Education'),
+          title: const Text('Empowering Women Against Violence'),
           bottom: const TabBar(
-            isScrollable: true,
             tabs: [
               Tab(text: 'Overview'),
-              Tab(text: 'Cycle Phases'),
-              Tab(text: "Do's & Don'ts"),
+              Tab(text: 'Laws & Rights'),
+              Tab(text: 'Motivation'),
               Tab(text: 'FAQs'),
             ],
           ),
@@ -27,8 +26,8 @@ class EducationScreen extends StatelessWidget {
         body: const TabBarView(
           children: [
             OverviewTab(),
-            CyclePhasesTab(),
-            DosAndDontsTab(),
+            LawsProtectionTab(),
+            MotivationTab(),
             FAQsTab(),
           ],
         ),
