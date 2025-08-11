@@ -61,6 +61,7 @@ class LandingPage extends StatelessWidget {
                       isOutlined: true,
                       fontSize: 16,
                       fontWeight: FontWeight.normal,
+                      textColor: AppTheme.primaryColor,
                     ),
                   ],
                 ),

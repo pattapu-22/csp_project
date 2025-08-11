@@ -16,6 +16,7 @@ class CustomTextField extends StatefulWidget {
     this.validator,
     this.isPassword = false,
     this.keyboardType = TextInputType.text,
+    required int borderRadius,
   });
 
   @override

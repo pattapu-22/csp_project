@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:empower_safe/screens/report_screen.dart';
-import 'package:empower_safe/screens/resources_screen.dart';
-import 'package:empower_safe/screens/forum_screen.dart';
-import 'package:empower_safe/screens/education_screen.dart';
 import 'package:empower_safe/widgets/sos_button.dart';
 import '../services/firebase_service.dart';
 import 'package:empower_safe/utils/app_theme.dart';
@@ -18,38 +14,36 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'EmpowerSafe',
-          style: TextStyle(color: Colors.white), // White text for app bar title
+          'EmpowerHer',
+          style: TextStyle(color: Colors.white),
         ),
-        backgroundColor:
-            AppTheme.primaryColor, // Use primary color from AppTheme
+        backgroundColor: AppTheme.primaryColor,
         actions: [
           IconButton(
-            icon: const Icon(
-              Icons.logout,
-              color: Colors.white, // White logout icon
-            ),
+            icon: const Icon(Icons.logout, color: Colors.white),
             tooltip: 'Logout',
             onPressed: () async {
-              await firebaseService.signOut();
-              // After logout, navigate to login screen
-              Navigator.pushNamedAndRemoveUntil(
-                context,
-                '/landing',
-                (route) => false,
-              );
+              final shouldLogout = await _showLogoutDialog(context);
+              if (shouldLogout == true) {
+                await firebaseService.signOut();
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  '/landing',
+                  (route) => false,
+                );
+              }
             },
           ),
         ],
       ),
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center, // Align left
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding: EdgeInsets.all(30.0),
+              padding: const EdgeInsets.all(30.0),
               child: Text(
-                'Welcome to EmpowerSafe!',
+                'Welcome to EmpowerHer!',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -63,61 +57,33 @@ class HomeScreen extends StatelessWidget {
               crossAxisCount: 2,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              padding: const EdgeInsets.all(20.0), // Increased padding
-              crossAxisSpacing: 20.0, // Horizontal spacing between cards
-              mainAxisSpacing: 20.0, // Vertical spacing between cards
+              padding: const EdgeInsets.all(20.0),
+              crossAxisSpacing: 20.0,
+              mainAxisSpacing: 20.0,
               children: [
                 _buildCard(
                   context,
                   'Report Incident',
                   Icons.report,
-                  () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const ReportScreen(),
-                      ),
-                    );
-                  },
+                  () => Navigator.pushNamed(context, '/report'),
                 ),
                 _buildCard(
                   context,
                   'Resources',
                   Icons.book,
-                  () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const ResourcesScreen(),
-                      ),
-                    );
-                  },
+                  () => Navigator.pushNamed(context, '/resource'),
                 ),
                 _buildCard(
                   context,
                   'Community Forum',
                   Icons.forum,
-                  () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const ForumScreen(),
-                      ),
-                    );
-                  },
+                  () => Navigator.pushNamed(context, '/forum'),
                 ),
                 _buildCard(
                   context,
                   'Education Screen',
                   Icons.cast_for_education_sharp,
-                  () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const EducationScreen(),
-                      ),
-                    );
-                  },
+                  () => Navigator.pushNamed(context, '/education'),
                 ),
               ],
             ),
@@ -136,21 +102,38 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              icon,
-              size: 50,
-              color: AppTheme.primaryColor, // Primary color for icons
-            ),
+            Icon(icon, size: 50, color: AppTheme.primaryColor),
             const SizedBox(height: 8),
             Text(
               title,
               style: TextStyle(
                 fontSize: 16,
-                color: AppTheme.primaryColor, // Primary color for text
+                color: AppTheme.primaryColor,
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Future<bool?> _showLogoutDialog(BuildContext context) {
+    return showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Confirm Logout'),
+        content: const Text('Are you sure you want to logout?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false), // Cancel
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true), // Logout
+            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            child: const Text('Logout'),
+          ),
+        ],
       ),
     );
   }

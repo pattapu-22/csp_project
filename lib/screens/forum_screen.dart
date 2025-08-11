@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:empower_safe/services/firebase_service.dart';
-import 'package:empower_safe/constants.dart';
 
 class ForumScreen extends StatefulWidget {
   const ForumScreen({super.key});
@@ -21,10 +20,16 @@ class _ForumScreenState extends State<ForumScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final primaryColor = Theme.of(context).primaryColor;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Community Forum'),
-        backgroundColor: kPrimaryColor,
+        title: const Text(
+          'Community Forum',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: primaryColor,
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: Column(
         children: [
@@ -41,7 +46,7 @@ class _ForumScreenState extends State<ForumScreen> {
                 }
 
                 return ListView(
-                  reverse: true, // latest messages at the bottom
+                  reverse: true,
                   children: snapshot.data!.docs.map((doc) {
                     final data = doc.data() as Map<String, dynamic>;
                     final userName = data['userName'] ?? 'Unknown User';
@@ -49,8 +54,11 @@ class _ForumScreenState extends State<ForumScreen> {
                     final timestamp = data['timestamp'];
 
                     return ListTile(
-                      leading: const Icon(Icons.account_circle,
-                          size: 40, color: kAccentColor),
+                      leading: Icon(
+                        Icons.account_circle,
+                        size: 40,
+                        color: primaryColor, // Theme color
+                      ),
                       title: Text(
                         userName,
                         style: const TextStyle(fontWeight: FontWeight.bold),
@@ -89,7 +97,7 @@ class _ForumScreenState extends State<ForumScreen> {
                 ),
                 const SizedBox(width: 8),
                 IconButton(
-                  icon: const Icon(Icons.send, color: kAccentColor),
+                  icon: Icon(Icons.send, color: primaryColor), // Theme color
                   onPressed: () async {
                     if (_postController.text.trim().isNotEmpty) {
                       await FirebaseService()

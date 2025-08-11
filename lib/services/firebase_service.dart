@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../models/report.dart';
 
 class FirebaseService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -55,9 +54,5 @@ class FirebaseService {
       print('Error fetching username: $e');
     }
     return null;
-  }
-
-  Future<void> addReport(Report report) async {
-    await _firestore.collection('reports').doc(report.id).set(report.toMap());
   }
 }

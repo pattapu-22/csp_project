@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:empower_safe/constants.dart';
 
 class ResourcesScreen extends StatelessWidget {
   const ResourcesScreen({super.key});
@@ -23,6 +22,7 @@ class ResourcesScreen extends StatelessWidget {
     required String title,
     required String description,
     required IconData icon,
+    required Color primaryColor,
     String? phone,
     String? url,
   }) {
@@ -31,12 +31,15 @@ class ResourcesScreen extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       elevation: 2,
       child: ListTile(
-        leading: Icon(icon, color: kPrimaryColor, size: 30),
+        leading: Icon(icon, color: primaryColor, size: 30),
         title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
         subtitle: Text(description),
-        trailing: url != null
-            ? const Icon(Icons.open_in_new, color: kPrimaryColor)
-            : null,
+        trailing: phone != null
+            ? Icon(Icons.call, color: primaryColor) // 📞 For phone calls
+            : url != null
+                ? Icon(Icons.open_in_new,
+                    color: primaryColor) // 🌐 For websites
+                : null,
         onTap: () {
           if (phone != null) {
             _launchPhone(phone);
@@ -50,10 +53,16 @@ class ResourcesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final primaryColor = Theme.of(context).primaryColor;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Resources'),
-        backgroundColor: kPrimaryColor,
+        title: const Text(
+          'Resources',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: primaryColor,
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: ListView(
         padding: const EdgeInsets.all(16),
@@ -67,12 +76,14 @@ class ResourcesScreen extends StatelessWidget {
             description: "Call for immediate help - 24/7 service",
             icon: Icons.phone_in_talk,
             phone: "1091",
+            primaryColor: primaryColor,
           ),
           _buildResourceCard(
             title: "Police Emergency",
             description: "Call police for urgent help",
             icon: Icons.local_police,
             phone: "100",
+            primaryColor: primaryColor,
           ),
           const SizedBox(height: 16),
           const Text(
@@ -85,12 +96,14 @@ class ResourcesScreen extends StatelessWidget {
                 "Official government portal for women's safety and support",
             icon: Icons.account_balance,
             url: "https://www.ncw.gov.in/",
+            primaryColor: primaryColor,
           ),
           _buildResourceCard(
             title: "Free Legal Aid - NALSA",
             description: "Access free legal services and advice",
             icon: Icons.gavel,
             url: "https://nalsa.gov.in",
+            primaryColor: primaryColor,
           ),
           const SizedBox(height: 16),
           const Text(
@@ -103,12 +116,14 @@ class ResourcesScreen extends StatelessWidget {
             icon: Icons.shield,
             url:
                 "https://www.placer.ca.gov/8848/Violence-against-women-general-safety-ti",
+            primaryColor: primaryColor,
           ),
           _buildResourceCard(
             title: "One Stop Centres",
             description: "Support for women affected by violence",
             icon: Icons.support,
             url: "https://wdcw.ap.gov.in/Institutions/OSC ",
+            primaryColor: primaryColor,
           ),
           const SizedBox(height: 16),
           const Text(
@@ -120,12 +135,14 @@ class ResourcesScreen extends StatelessWidget {
             description: "Mental health support for women",
             icon: Icons.health_and_safety,
             phone: "9152987821",
+            primaryColor: primaryColor,
           ),
           _buildResourceCard(
             title: "Vandrevala Foundation Helpline",
             description: "24x7 Mental health counselling",
             icon: Icons.psychology,
             phone: "1860 266 2345",
+            primaryColor: primaryColor,
           ),
         ],
       ),

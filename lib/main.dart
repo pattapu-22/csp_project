@@ -6,6 +6,10 @@ import 'package:empower_safe/screens/home_screen.dart';
 import 'package:empower_safe/screens/landing_page.dart';
 import 'package:empower_safe/screens/sign_in_page.dart';
 import 'package:empower_safe/screens/login_page.dart';
+import 'package:empower_safe/screens/education_screen.dart';
+import 'package:empower_safe/screens/forum_screen.dart';
+import 'package:empower_safe/screens/report_screen.dart';
+import 'package:empower_safe/screens/resources_screen.dart';
 
 import 'utils/app_theme.dart';
 
@@ -33,6 +37,10 @@ class EmpowerSafeApp extends StatelessWidget {
         '/signin': (context) => const SignInPage(),
         '/login': (context) => const LoginPage(),
         '/home': (context) => const HomeScreen(),
+        '/education': (context) => const EducationScreen(),
+        '/forum': (context) => const ForumScreen(),
+        '/report': (context) => const ReportScreen(),
+        '/resource': (context) => const ResourcesScreen(),
       },
     );
   }
